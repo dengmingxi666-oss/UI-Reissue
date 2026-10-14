@@ -13,7 +13,9 @@
 @media(max-width:1240px){.workspace{gap:16px;padding:18px}.inspector{width:265px;flex-basis:265px}.topbar{padding:0 18px}.brand small{display:none}.status{display:none}.actions{gap:5px}.btn{padding:7px 9px}.canvas-zone{flex:1;overflow:hidden}}
 @media(max-width:850px){.workspace{display:block;padding:12px}.inspector{position:relative;top:0;width:100%;margin-top:15px}.canvas-zone{width:100%}.topbar{height:auto;min-height:64px;flex-wrap:wrap;padding:12px;gap:10px}.brand strong{font-size:12px}.brand-mark{display:none}.actions{flex-wrap:wrap}.footer-note{line-height:1.7}.node-list{max-height:150px}}
 @media print{.topbar,.inspector,.canvas-caption,.footer-note,.toast{display:none!important}.workspace{padding:0;display:block}.canvas-zone{width:963px}.canvas-wrap{box-shadow:none;border:0;overflow:visible}.stage{width:963px}.trace-row{outline:none!important}}
-.icon-picker{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 12px}.icon-option{display:flex;flex-direction:column;align-items:center;gap:5px;background:#fff;border:1px solid #e1e6ed;border-radius:6px;padding:8px 2px;color:#626970;font-size:10px;cursor:pointer}.icon-option svg{width:19px;height:19px}.icon-option[aria-pressed="true"]{background:#edf3ff;border-color:#8caeee;color:#2563eb}.icon-option:focus-visible{outline:2px solid #2563eb}.icon-section{border-top:1px solid #eef0f3;padding-top:12px;margin-top:12px}.row-icon{height:auto;min-height:20px}</style>
+.icon-picker{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 12px}.icon-option{display:flex;flex-direction:column;align-items:center;gap:5px;background:#fff;border:1px solid #e1e6ed;border-radius:6px;padding:8px 2px;color:#626970;font-size:10px;cursor:pointer}.icon-option svg{width:19px;height:19px}.icon-option[aria-pressed="true"]{background:#edf3ff;border-color:#8caeee;color:#2563eb}.icon-option:focus-visible{outline:2px solid #2563eb}.icon-section{border-top:1px solid #eef0f3;padding-top:12px;margin-top:12px}.row-icon{height:auto;min-height:20px}
+.version-dialog{border:1px solid #e1e6ed;border-radius:14px;padding:0;width:min(580px,94vw);max-height:82vh;color:#263341;background:white;box-shadow:0 24px 90px #17212b30}.version-dialog::backdrop{background:#17212b55}.version-header{padding:20px 22px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #edf0f3}.version-header h2{font-size:17px;margin:0}.version-body{padding:18px 22px}.version-note{font-size:12px;color:#818b98;line-height:1.7;margin:0 0 15px}.version-form{display:flex;gap:8px}.version-form input{min-width:0;flex:1;border:1px solid #dfe4eb;border-radius:7px;padding:9px 11px;font-size:13px}.version-list{margin:18px 0;max-height:42vh;overflow:auto}.version-entry{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid #edf0f3}.version-info{flex:1;min-width:0}.version-info strong{font-size:13px;overflow-wrap:anywhere}.version-info small{display:block;font-size:11px;color:#8c96a2;margin-top:5px}.version-buttons{display:flex;gap:5px}.version-empty{padding:30px 0;text-align:center;font-size:13px;color:#8b95a1}.version-error{font-size:12px;color:#b34141;min-height:18px;margin:10px 0 0}.version-bottom{display:flex;gap:8px;flex-wrap:wrap}.version-dialog button{font-family:inherit}.version-close{border:0;background:none;font-size:24px;color:#818b98;cursor:pointer}
+</style>
 </head>
 <body>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden"><defs>
@@ -26,7 +28,7 @@
 </defs></svg>
 <header class="topbar">
  <div class="brand"><div class="brand-mark">3.0</div><div><strong>ToolCall 界面复刻</strong><small>四段阶段反馈 · 逐层展开 · 可直接修改</small></div></div>
- <div class="actions"><a class="btn" href="materials.html" style="text-decoration:none">原版素材界面</a><span class="status" id="save-status">改动自动保存在本机</span><div class="segmented" aria-label="工作模式"><button id="edit-mode" class="active">编辑</button><button id="preview-mode">预览</button><button id="reference-mode">原图</button></div><button class="btn" id="expand-all">展开全部</button><button class="btn" id="collapse-all">收起全部</button><button class="btn" id="undo" title="撤销上一次修改">撤销</button><button class="btn" id="reset">还原</button><button class="btn primary" id="export-html">导出 HTML</button></div>
+ <div class="actions"><button class="btn primary" id="versions-open">版本历史</button><a class="btn" href="materials.html" style="text-decoration:none">原版素材界面</a><span class="status" id="save-status">改动自动保存在本机</span><div class="segmented" aria-label="工作模式"><button id="edit-mode" class="active">编辑</button><button id="preview-mode">预览</button><button id="reference-mode">原图</button></div><button class="btn" id="expand-all">展开全部</button><button class="btn" id="collapse-all">收起全部</button><button class="btn" id="undo" title="撤销上一次修改">撤销</button><button class="btn" id="reset">还原</button><button class="btn primary" id="export-html">导出 HTML</button></div>
 </header>
 <main class="workspace">
  <section class="canvas-zone" aria-label="界面画布">
@@ -155,4 +157,34 @@ $('export-json').onclick=()=>download('AI_PPT_3.0_Grouped_Config.json',JSON.stri
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();exportHtml();}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!e.target.isContentEditable&&!['TEXTAREA','INPUT'].includes(e.target.tagName)){e.preventDefault();$('undo').click();}});
 render();
 </script>
-</body></html>
+
+<dialog id="version-dialog" class="version-dialog" aria-labelledby="version-title">
+ <div class="version-header"><h2 id="version-title">版本历史</h2><button class="version-close" id="version-close" aria-label="关闭版本历史">×</button></div>
+ <div class="version-body"><p class="version-note">保存当前文字、图标、分组、待办及样式。版本保存在当前浏览器，导出备份后可在其他设备导入。</p>
+ <form class="version-form" id="version-form"><input id="version-name" maxlength="80" placeholder="版本名称，例如：方案二 · 合并思考" aria-label="版本名称"><button class="btn primary" type="submit">保存当前版本</button></form>
+ <p class="version-error" id="version-error" role="status"></p><div class="version-list" id="version-list"></div>
+ <div class="version-bottom"><button class="btn" id="version-export">导出全部版本</button><button class="btn" id="version-import">导入版本备份</button><input type="file" id="version-file" accept=".json,application/json" hidden></div></div>
+</dialog>
+<script>
+(()=>{
+ const scope='grouped',key='aippt-version-history-v1-'+scope;
+ const el=id=>document.getElementById(id),dlg=el('version-dialog');
+ let versions=[];
+ function error(message=''){el('version-error').textContent=message;}
+ function load(){try{const raw=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(raw)||!raw.every(validVersion))throw Error();versions=raw;return true;}catch{error('版本记录无法读取，未覆盖原有数据。');return false;}}
+ function validVersion(v){return v&&typeof v.id==='string'&&typeof v.name==='string'&&v.name.length<=80&&typeof v.createdAt==='string'&&Number.isFinite(Date.parse(v.createdAt))&&validState(v.state);}
+ function persist(next){try{localStorage.setItem(key,JSON.stringify(next));versions=next;error();return true;}catch{error('保存失败：浏览器存储空间不足或不可用。请先导出备份。');return false;}}
+ function snapshot(name){return {id:newId(),name,createdAt:new Date().toISOString(),state:copy(state)};}
+ function defaultName(){return '方案 '+(versions.length+1)+' · '+new Date().toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});}
+ function draw(){const list=el('version-list');list.replaceChildren();el('version-export').disabled=!versions.length;
+ if(!versions.length){const p=document.createElement('p');p.className='version-empty';p.textContent='还没有保存的版本，先给当前方案留一份快照。';list.append(p);}
+ versions.forEach(v=>{const row=document.createElement('div');row.className='version-entry';const info=document.createElement('div');info.className='version-info';const title=document.createElement('strong');title.textContent=v.name;const date=document.createElement('small');date.textContent=new Date(v.createdAt).toLocaleString('zh-CN')+' · '+v.state.nodes.length+'条记录';info.append(title,date);const actions=document.createElement('div');actions.className='version-buttons';
+ const restore=document.createElement('button');restore.className='btn primary';restore.textContent='恢复';restore.onclick=()=>{if(!load())return;const target=versions.find(x=>x.id===v.id);if(!target)return;const backup=snapshot('恢复前自动备份');if(!persist([backup,...versions]))return;mutate(()=>{state=copy(target.state);selectedId=null;summaryOpen=true;});dlg.close();toast('已恢复：'+target.name+'；原方案已自动备份');};
+ const del=document.createElement('button');del.className='btn danger';del.textContent='删除';del.onclick=()=>{if(!confirm('删除版本“'+v.name+'”？当前画布不受影响。'))return;if(!load())return;if(persist(versions.filter(x=>x.id!==v.id)))draw();};actions.append(restore,del);row.append(info,actions);list.append(row);});}
+ el('versions-open').onclick=()=>{document.activeElement?.blur();error();dlg.showModal();if(load()){draw();el('version-name').value='';}el('version-name').focus();};
+ el('version-close').onclick=()=>dlg.close();
+ el('version-form').onsubmit=e=>{e.preventDefault();if(!load())return;const name=el('version-name').value.trim()||defaultName();if(persist([snapshot(name),...versions])){draw();el('version-name').value='';toast('版本已保存');}};
+ el('version-export').onclick=()=>{if(!load())return;download('AI_PPT_'+scope+'_版本备份.json',JSON.stringify({format:'aippt-version-history',version:1,scope,versions},null,2),'application/json');};
+ el('version-import').onclick=()=>el('version-file').click();el('version-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(data.format!=='aippt-version-history'||data.scope!==scope||!Array.isArray(data.versions)||!data.versions.every(validVersion))throw Error();if(!load())return;const ids=new Set(versions.map(v=>v.id));const added=data.versions.filter(v=>!ids.has(v.id));if(persist([...added,...versions])){draw();toast('已导入'+added.length+'个版本');}}catch{error('备份格式不正确或不属于此页面，请选择本页面导出的版本备份。');}e.target.value='';};
+})();
+</script></body></html>
